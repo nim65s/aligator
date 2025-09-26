@@ -2,8 +2,6 @@
 # Copyright (C) 2022-2024 LAAS-CNRS, INRIA
 #
 
-cmake_policy(SET CMP0057 NEW)
-
 # Create an example
 function(create_example exfile)
   set(options "")
@@ -28,7 +26,6 @@ create_example(talos-walk.cpp DEPENDENCIES talos_walk_utils)
 create_example(se2-car.cpp)
 
 if(BUILD_CROCODDYL_COMPAT)
-  ADD_PROJECT_PRIVATE_DEPENDENCY(example-robot-data 4.0.9 REQUIRED)
   create_example(
     talos-arm.cpp
     DEPENDENCIES aligator::croc_compat croc_talos_arm_utils

@@ -124,7 +124,6 @@ function(set_standard_output_directory target)
 endfunction()
 
 # --- OPTIONS ----------------------------------------
-option(BUILD_PYTHON_INTERFACE "Build the Python bindings" ON)
 option(
   BUILD_WITH_VERSION_SUFFIX
   "Build libraries with version appended to suffix"
@@ -238,12 +237,7 @@ if(BUILD_CROCODDYL_COMPAT)
 endif()
 
 if(BUILD_WITH_CHOLMOD_SUPPORT)
-  set(
-    CMAKE_MODULE_PATH
-    ${JRL_CMAKE_MODULES}/find-external/CHOLMOD
-    ${CMAKE_MODULE_PATH}
-  )
-  ADD_PROJECT_DEPENDENCY(CHOLMOD REQUIRED)
+  ADD_PROJECT_DEPENDENCY(CHOLMOD REQUIRED FIND_EXTERNAL CHOLMOD)
   message(
     STATUS
     "Build with CHOLMOD support (LGPL). See CHOLMOD/Doc/License.txt for further details."
@@ -251,7 +245,7 @@ if(BUILD_WITH_CHOLMOD_SUPPORT)
 endif()
 
 if(BUILD_PYTHON_INTERFACE)
-  set(PYTHON_COMPONENTS Interpreter Development NumPy)
+  set(PYTHON_COMPONENTS Interpreter Development.Module NumPy)
   ADD_PROJECT_DEPENDENCY(
     eigenpy
     3.9.0
